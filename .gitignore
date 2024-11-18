@@ -1,1 +1,30 @@
-venv
+# Virtual environment
+venv/
+venv.venv/
+
+# Python cache files
+*.pyc
+__pycache__/
+
+# Flask instance folder (if applicable)
+instance/
+
+# Pytest and Coverage files
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution and build directories
+dist/
+build/
+*.egg-info/
+
+# Ignore specific Python files related to 'stream'
+stream.py
+stream1.py
+stream2.py
+stream3.py
+stream4.py
+stream5.py
+stream6.py
+

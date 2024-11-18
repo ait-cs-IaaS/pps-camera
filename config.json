@@ -1,0 +1,101 @@
+{
+    "employees": [
+      {
+        "id": "EMP12345",
+        "name": "Ghaith Doe",
+        "picture": "ghaith.jpg",
+        "video": "ghaith.mp4"
+      },
+      {
+        "id": "EMP00000",
+        "name": "Door Johnson",
+        "picture": "door.jpg",
+        "video": "door.mp4"
+      },
+      {
+        "id": "EMP39485",
+        "name": "Oliver Jackson",
+        "picture": "oliver.jpg",
+        "video": "oliver.mp4"
+      },
+      {
+        "id": "EMP56902",
+        "name": "Petra Brown",
+        "picture": "petra.jpg",
+        "video": "petra.mp4"
+      },
+      {
+        "id": "EMP56552",
+        "name": "Tobi Gazi",
+        "picture": "tobi.jpg",
+        "video": "tobi.mp4"
+      },
+      {
+        "id": "EMP10210",
+        "name": "Gregor Smith",
+        "picture": "gregor.jpg",
+        "video": "gregor.mp4"
+      },
+      {
+        "id": "EMP39486",
+        "name": "Irene White",
+        "picture": "irene.jpg",
+        "video": "irene.mp4"
+      },
+      {
+        "id": "EMP47892",
+        "name": "Lenhard Blue",
+        "picture": "lenhard.jpg",
+        "video": "lenhard.mp4"
+      },
+      {
+        "id": "EMP50392",
+        "name": "Mario Black",
+        "picture": "mario.jpg",
+        "video": "mario.mp4"
+      },
+      {
+        "id": "EMP20459",
+        "name": "Martin Green",
+        "picture": "martin.jpg",
+        "video": "martin.mp4"
+      },
+      {
+        "id": "EMP68492",
+        "name": "Michael Orange",
+        "picture": "michael.jpg",
+        "video": "Michael.mp4"
+      },
+      {
+        "id": "EMP78941",
+        "name": "Peter Silver",
+        "picture": "peter.jpg",
+        "video": "peter.mp4"
+      },
+      {
+        "id": "EMP97463",
+        "name": "Anna Purple",
+        "picture": "anna.jpg",
+        "video": "anna.mp4"
+      },
+      {
+        "id": "EMP97862",
+        "name": "Klaus Meyer",
+        "picture": "klaus.jpg",
+        "video": "klaus.mp4"
+      },
+      {
+        "id": "EMP98374",
+        "name": "Stefania Rossi",
+        "picture": "stefania.jpg",
+        "video": "stefania.mp4"
+      },
+      {
+        "id": "EMP56552",
+        "name": "Tobi Gazi",
+        "picture": "tobi.jpg",
+        "video": "max.mp4"
+      }
+    ]
+  }
+  

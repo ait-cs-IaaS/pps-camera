@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Screen Video Feed with Logs</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+        #videoStream {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            z-index: 1;
+        }
+
+
+        #logOverlay {
+            width: 400px;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            overflow: auto;
+            max-height: 60%;
+            overflow: hidden;
+        }
+
+
+        #employeeImage {
+            width: 400px;
+            height: 500px;
+            margin-top: 10px;
+            object-fit: cover;
+
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.min.js"></script>
+    <script>
+        var socket = io();
+
+        socket.on('connect', function() {
+            console.log('Connected to server');
+        });
+
+        socket.on('server_message', function(msg) {
+            console.log(msg.data);
+        });
+
+        socket.on('access_log', function(log) {
+            const logOverlay = document.getElementById('logOverlay');
+            logOverlay.innerHTML = `
+                <h3>Access Log</h3>
+                <p><strong>Employee ID:</strong> ${log.employee_id}</p>
+                <p><strong>Employee Name:</strong> ${log.employee_name}</p>
+                <p><strong>Status:</strong> ${log.status}</p>
+                <p><strong>Time:</strong> ${log.timestamp}</p>
+            `;
+        });
+
+        socket.on('facial_hello', function(data) {
+            const logOverlay = document.getElementById('logOverlay');
+            document.querySelectorAll("#employeeImage, .employeeMessage").forEach(el => el.remove());
+
+            if (data.image_url) {
+                logOverlay.innerHTML += `<img id="employeeImage" src="${data.image_url}" alt="Employee Image">`;
+            }
+            logOverlay.innerHTML += `<p class="employeeMessage">${data.message}</p>`;
+        });
+
+        socket.on('video_changed', function(data) {
+            console.log(data.message);
+            const videoStream = document.getElementById('videoStream');
+            videoStream.src = '/feed?' + new Date().getTime();
+        });
+
+        document.addEventListener('dblclick', function() {
+            const videoStream = document.getElementById('videoStream');
+            if (videoStream.requestFullscreen) {
+                videoStream.requestFullscreen();
+            } else if (videoStream.webkitRequestFullscreen) { // Safari
+                videoStream.webkitRequestFullscreen();
+            } else if (videoStream.msRequestFullscreen) { // IE11
+                videoStream.msRequestFullscreen();
+            }
+        });
+    </script>
+</head>
+<body>
+    <img id="videoStream" src="/feed" alt="Live Video Stream">
+    <div id="logOverlay">
+        <h3>Access Log</h3>
+        <p>No logs available yet...</p>
+    </div>
+</body>
+</html> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.min.js"></script>
+<script>
+    var socket = io();
+
+    socket.on('connect', function() {
+        console.log('Connected to server');
+        socket.emit('start_video_stream');  // Request the server to start streaming
+    });
+
+    socket.on('video_frame', function(data) {
+        var img = document.getElementById('videoStream');
+        img.src = 'data:image/jpeg;base64,' + data.frame;
+    });
+
+    // Other socket events
+    socket.on('access_log', function(log) {
+        const logOverlay = document.getElementById('logOverlay');
+        logOverlay.innerHTML = `
+            <h3>Access Log</h3>
+            <p><strong>Employee ID:</strong> ${log.employee_id}</p>
+            <p><strong>Employee Name:</strong> ${log.employee_name}</p>
+            <p><strong>Status:</strong> ${log.status}</p>
+            <p><strong>Time:</strong> ${log.timestamp}</p>
+        `;
+    });
+
+    socket.on('facial_hello', function(data) {
+        const logOverlay = document.getElementById('logOverlay');
+        document.querySelectorAll("#employeeImage, .employeeMessage").forEach(el => el.remove());
+
+        if (data.image_url) {
+            logOverlay.innerHTML += `<img id="employeeImage" src="${data.image_url}" alt="Employee Image">`;
+        }
+        logOverlay.innerHTML += `<p class="employeeMessage">${data.message}</p>`;
+    });
+
+    document.addEventListener('dblclick', function() {
+        const videoStream = document.getElementById('videoStream');
+        if (videoStream.requestFullscreen) {
+            videoStream.requestFullscreen();
+        } else if (videoStream.webkitRequestFullscreen) {
+            videoStream.webkitRequestFullscreen(); // Safari
+        } else if (videoStream.msRequestFullscreen) { // IE11
+            videoStream.msRequestFullscreen();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem("page_open")) {
+            alert("The page is already open in another tab. Please use only one instance.");
+            window.close();
+        } else {
+            localStorage.setItem("page_open", true);
+        }
+
+        window.addEventListener('beforeunload', () => {
+            localStorage.removeItem("page_open");
+        });
+    });
+</script>
